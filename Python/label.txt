@@ -1,0 +1,12 @@
+<div><h1 style='text-align: center'>Data You have entered about Customer is Classified AS: </h1>
+<p  style='text-align: center' font-size:500px>"+churn+"</p></div>
+<form  align='center' method='GET' action='http://127.0.0.1:9090/'>
+<h1 align='center'>      &#8595  </h1>
+    <input style='padding:15px;font-size:20px' type='submit' value='Back To Home'>
+    <h3 align='center'> You can back to Home Page to Pick a new model</h3>
+    </form>
+<form  align='center' method='GET' action='http://127.0.0.1:9090/prediction'>
+<h1 align='center'>      &#8595  </h1>
+    <input style='padding:15px;font-size:20px' type='submit' value='Test New Values'>
+        <h3 align='center'> Another New test Values </h3>\
+        </form>

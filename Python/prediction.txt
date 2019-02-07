@@ -1,0 +1,66 @@
+<form  align='center' method='GET' action='http://127.0.0.1:9090/get_label'>
+	<center>
+                <h1>Enter Your New Values You wanna Predict </h1>
+                <div style="padding:7px"><span>Gender : </span>
+                <select name='gender' required>
+		<option selected disabled>-Please Select-</option>
+                <option>Male</option>
+                <option>Female</option>
+                </select></div>
+		<div style="padding:7px">
+                <span>SeniorCitizen : </span>
+                <select name='SeniorCitizen' >
+		<option selected disabled>-Please Select-</option>
+                <option>0</option>
+                <option>1</option>
+                </select></div>
+		<div style="padding:7px">
+                <span>TechSupport : </span>
+                <select name='TechSupport'>
+		<option selected disabled>-Please Select-</option>
+                <option>NO</option>
+                <option>No Internet Service</option>
+                <option>Yes</option>
+                </select>
+		</div>
+		<div style="padding:7px">
+                <span>PaperlessBilling</span>
+                <select name='PaperlessBilling'>
+		<option selected disabled>-Please Select-</option>
+                <option>NO</option>
+                <option>Yes</option>
+                </select></div>
+		<div style="padding:7px">
+                <span>PaymentMethod</span>
+                <select name='PaymentMethod'>
+		<option selected disabled>-Please Select-</option>
+                <option>Bank Transfer (Automatic)</option>
+                <option>Credit Card (Automatic)</option>
+                <option>Electronic Check</option>
+                <option>Mailed Check</option>
+                </select></div><div style="padding:7px">
+                <span>TotalCharges</span>
+                <input type='number' name='TotalCharges' required></div><div style="padding:7px">
+                <span>Tenure</span>
+                <input type='number' name='tenure' required></div><div style="padding:7px">
+                <span>OnlineSecurity</span>
+                <select name='OnlineSecurity'>
+		<option selected disabled>-Please Select-</option>
+                <<option>NO</option>
+                <option>No Internet Service</option>
+                <option>Yes</option>
+                </select></div><div style="padding:7px">
+                <span>Contract</span>
+                <select name='Contract'>
+		<option selected disabled>-Please Select-</option>
+                <<option>month-to-month</option>
+                <option>one year</option>
+                <option>two year</option>
+                </select></div>
+                </br></br>\
+                <h1>Press Here to Get The Label Of new Data  </h1>
+                <h1 align='center'>      &#8595  </h1>
+                <input style='padding:15px;font-size:20px' type='submit' value='PREDICT'>
+	</center>
+                </form>
+    "
