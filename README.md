@@ -5,7 +5,7 @@
 ## i have used: 
 - Logistic Regression.
 - KNN. 
-- SVM(linear kernel)  
+- SVM.  
 - Random forest. 
 - Decision Tree. 
 - Naive Bayes.
