@@ -1,1 +1,11 @@
 # NTI-Final-Assignment
+
+### NTI-Final-Assignment Use flask(python)  and shiny dashboard (R) to build simple user interface to see how choosing classification model may affect prediction accuracy.
+
+## i have used: 
+- Logistic Regression.
+- KNN. 
+- SVM(linear kernel)  
+- Random forest. 
+- Decision Tree. 
+- Naive Bayes.
