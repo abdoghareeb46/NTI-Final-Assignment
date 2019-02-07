@@ -17,7 +17,7 @@ library(klaR)
 library(e1071)
 
 
-#setwd("C:\Users\AbDo\Desktop\R Code")
+#setwd("C:\Users\magic\Desktop\R Code")
 
 #Read and View Data
 read_data<-function(){
@@ -111,15 +111,16 @@ split_data<-function(){
 log_model<-function(){
   #Logistic Regression
   ctrl <- trainControl(method="repeatedcv",repeats = 3)
-  log_model <- train(Churn~.,data=train_data,method='glm',family='binomial',
+  log_ <- train(Churn~.,data=train_data,method='glm',family='binomial',
                      preProcess = c("center","scale"),trControl = ctrl,tuneLength=10)
   # Predicting the Test set results
-  log_pred<-predict(log_model,newdata=test_data)
+  log_pred<-predict(log_,newdata=test_data)
   log_cm <- confusionMatrix(log_pred, test_data$Churn)$table
   log_accuracy <- (mean(log_pred == test_data$Churn))*100
   #print(paste('Logistic Regression Accuracy',(log_accuracy)*100))
   #print(log_cm)
   #print(cm)
+  assign('log.model',log_,envir = globalenv())
   assign('log_accuracy',log_accuracy,envir = globalenv())
   assign('log_cm',log_cm,envir = globalenv())
 }
@@ -131,16 +132,18 @@ dt_model<-function(){
   dt_cm<-confusionMatrix(dt_pred, test_data$Churn)$table
   dt_accuracy<-(mean(dt_pred == test_data$Churn))*100
   assign('dt_cm',dt_cm,envir = globalenv())
+  assign('dt.model',dt,envir = globalenv())
   assign('dt_accuracy',dt_accuracy,envir = globalenv())
 }
 
 knn_model<-function(){
   ctrl <- trainControl(method="repeatedcv",repeats = 3) 
-  knn_mod <- train(Churn ~ ., data = train_data, 
+  knn_ <- train(Churn ~ ., data = train_data, 
                   method = "knn", trControl = ctrl, preProcess = c("center","scale"), tuneLength = 10)
-  knn_pred <- predict(knn_mod,newdata = test_data )
+  knn_pred <- predict(knn_,newdata = test_data )
   knn_accuracy<-(mean(knn_pred == test_data$Churn))*100
   knn_cm<-confusionMatrix(knn_pred, test_data$Churn )$table
+  assign('knn.model',knn_,envir = globalenv())
   assign('knn_accuracy',knn_accuracy,envir = globalenv())
   assign('knn_cm',knn_cm,envir = globalenv())
   
@@ -153,11 +156,12 @@ rfc_model<-function(){
   control <- trainControl(method='repeatedcv', number=10, repeats=3)
   mtry <- sqrt(ncol(train_data))
   tunegrid <- expand.grid(.mtry=mtry)
-  rf_default <- train(Churn~.,data=train_data, method='rf', metric='Accuracy',
+  rfc_ <- train(Churn~.,data=train_data, method='rf', metric='Accuracy',
                      tuneGrid=tunegrid,trControl=control)
-  rfc_pred <- predict(rf_default,newdata = test_data )
+  rfc_pred <- predict(rfc_,newdata = test_data )
   rfc_cm<-confusionMatrix(rfc_pred, test_data$Churn )$table
   rfc_accuracy<-(mean(rfc_pred == test_data$Churn))*100
+  assign('rfc.model',rfc_,envir = globalenv())
   assign('rfc_accuracy',rfc_accuracy,envir = globalenv())
   assign('rfc_cm',rfc_cm,envir = globalenv())
 }
@@ -173,19 +177,68 @@ svm_model<-function(){
   svm_cm<-confusionMatrix(svm_pred, test_data$Churn )$table
   svm_accuracy<-(mean(svm_pred == test_data$Churn))*100
   assign('svm_accuracy',svm_accuracy,envir = globalenv())
+  assign('svm.model',svm_linear,envir = globalenv())
   assign('svm_cm',svm_cm,envir = globalenv())
   
 }
 
 #Naive Bayes Model
 naive_model<-function(){
-  nb<- train(Churn~.,data = train_data,method='nb',trControl=trainControl(method='cv',number=10))
-  nb_pred <- predict(nb,newdata = test_data )
+  nb_<- train(Churn~.,data = train_data,method='nb',trControl=trainControl(method='cv',number=10))
+  nb_pred <- predict(nb_,newdata = test_data )
   nb_cm<-confusionMatrix(nb_pred, test_data$Churn )$table
   nb_accuracy<-(mean(nb_pred == test_data$Churn))*100
   assign('nb_accuracy',nb_accuracy,envir = globalenv())
+  assign('nb.model',nb_,envir = globalenv())
   assign('nb_cm',nb_cm,envir = globalenv())
 }
+#New Data to Test
+gender<-c('Male','Male','Female');SeniorCitizen<-c(0,1,1);
+TechSupport<-c('No','No','Yes');PaperlessBilling<-c('Yes','No','Yes')
+Contract<-c('Month-to-month','Month-to-month','Month-to-month')
+PaymentMethod<-c('Bank transfer (automatic)','Mailed check','Electronic check');
+TotalCharges<-c(1236,520,6547);tenure<-c(18,32,10);
+OnlineSecurity<-c('Yes','Yes','No')
+newTest<-data.frame(gender,SeniorCitizen,TechSupport,PaperlessBilling,PaymentMethod,
+                    TotalCharges,tenure,OnlineSecurity,Contract)
+newTest$SeniorCitizen<-as.factor(newTest$SeniorCitizen)
+newTest$TotalCharges<-scale(newTest$TotalCharges)
+newTest$tenure<-scale(newTest$tenure)
+###################################################
+read_data()
+tenure_handle()
+pre_preocessing()
+handle_senior()
+split_data()
+log_model()
+naive_model()
+knn_model()
+svm_model()
+rfc_model()
+dt_model()
+#Predict NewTest Dataframe 
+log_new<-predict(log.model,newTest)
+naive_new<-predict(naive.model,newTest)
+rfc_new<-predict(rfc.model,newTest)
+dt_new<-predict(dt.model,newTest)
+svm_new<-predict(svm.model,newTest)
+knn_new<-predict(knn.model,newTest)
 
+print("Logistic Regression Predict New Values classes as  : ")
+print(log_new)
 
+print("Naive Bayes Predict New Values classes as  : ")
+print(naive_new)
+
+print("Random Forrest Predict New Values classes as  : ")
+print(rfc_new)
+
+print("Decision Tree Predict New Values classes as  : ")
+print(dt_new)
+
+print("SVM Predict New Values classes as  : ")
+print(svm_new)
+
+print("KNN Predict New Values classes as  : ")
+print(knn_new)
 
