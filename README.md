@@ -4,6 +4,8 @@
 
 #### I tried to handle imbalanced classes in dataset using OverSampling technique (SMOTE Algorithm, RandomOverSampler) from imbalanced-learn API
 
+# Customer Churn probability (Yes / No).
+
 ## i have used: 
 - Logistic Regression.
 - KNN. 
